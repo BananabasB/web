@@ -7,6 +7,7 @@ export type Post = {
   title: string;
   description: string;
   date: string;
+  image?: string;
   tags?: string[];
   source: "mdx" | "payload";
 };
@@ -64,4 +65,12 @@ export async function getPosts(): Promise<Post[]> {
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const posts = await getPosts();
   return posts.find((p) => p.slug === slug) ?? null;
+}
+
+export async function getPostContent(slug: string): Promise<string | null> {
+  const filePath = path.join(postsDir, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { content } = matter(raw);
+  return content;
 }

@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import { Google_Sans_Code } from "next/font/google";
 
 export const makeSans = localFont({
   src: [
@@ -12,3 +13,17 @@ export const makeSans = localFont({
   variable: "--font-make-sans",
   display: "swap",
 });
+
+export const googleSansCode = Google_Sans_Code({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-google-sans-code",
+  display: "swap",
+});
+export const udShinGoPr6N = localFont({
+  src: [
+    { path: "../../public/fonts/UDShinGoPr6N-Bold.otf", weight: "700", style: "normal" }
+  ],
+  variable: "--font-switch",
+  display: "swap",
+})

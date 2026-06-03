@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
   experimental: {
     mdxRs: true,
   },
+  images: {
+    remotePatterns: [{ hostname: "nxapi-presence.fancy.org.uk" }]
+  }
 };
 
 export default withMDX(nextConfig);
