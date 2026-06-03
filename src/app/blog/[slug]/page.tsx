@@ -24,24 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const raw = slug.endsWith(".md") || slug.endsWith(".mdx");
-  const baseSlug = raw ? slug.replace(/\.(md|mdx)$/, "") : slug;
-  const post = await getPostBySlug(baseSlug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
-  if (raw) {
-    if (post.source !== "mdx") notFound();
-    const md = await getPostContent(baseSlug);
-    if (!md) notFound();
-    return new Response(md, {
-      headers: {
-        "Content-Type": "text/markdown; charset=utf-8",
-      },
-    });
-  }
   const components = {
     pre: CodeBlock, // this replaces the default <pre> tag
   };
-  const content = post.source === "mdx" ? await getPostContent(baseSlug) : null;
+  const content = post.source === "mdx" ? await getPostContent(slug) : null;
 
   const shareUrl = `https://bananabas.dev/blog/${post.slug}`;
   const shareText = `${post.title} — ${shareUrl}`;
