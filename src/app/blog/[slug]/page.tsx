@@ -44,7 +44,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const content = post.source === "mdx" ? await getPostContent(slug) : null;
   const headings = content ? extractHeadings(content) : [];
 
-  const shareUrl = `https://bananabas.dev/blog/${post.slug}`;
+  const shareUrl = `https://barnabas.frg.network/blog/${post.slug}`;
 
   return (
     <div className="max-w-6xl px-6 py-12">
