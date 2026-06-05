@@ -1,3 +1,9 @@
+# bananabas
+
+this is my happy lickle website i made and i really like it :)
+
+you're free to use it as a template for your own website but you need to credit me on your site or i will be very sad.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
