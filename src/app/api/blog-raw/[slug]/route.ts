@@ -1,8 +1,8 @@
 import { getPostBySlug, getPostContent } from '@/lib/posts';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post || post.source !== 'mdx') {
     return new NextResponse(null, { status: 404 });
