@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getPresence, formatPlayTime } from "@/lib/presence";
 import { udShinGoPr6N } from "@/lib/fonts";
-const AVATAR_URL = "https://nxapi-presence.fancy.org.uk/api/presence/resources/baas/1/16dc178262ac9b45.jpeg";
+const AVATAR_URL = "https://nxapi-presence.fancy.org.uk/api/presence/resources/baas/1/4c4fe2c72d551151.jpeg";
 
 export default async function NowPlaying() {
   const data = await getPresence();

@@ -1,0 +1,76 @@
+---
+title: "my super awesome guide to revision"
+description: "How to revise effectively taking advantage of AI tools"
+date: "2026-06-03"
+tags: ["revision", "notebooklm", "claude", "ai", "chatgpt"]
+---
+
+Revision used to suck. I remember trying to make flashcards and stuff but it never felt like it was actually *working* - it felt more like I was doing it for no reason.
+
+Luckily AI tools were starting to become *really* good at parsing PDF documents and tools like NotebookLM were actually starting to develop into something that doesn't hallucinate every 5 seconds. But there was still a problem - lots of my teachers would give revision checklists in Word documents and stuff, and not only is that hard to parse but since these revision tools rely on RAG (retrieval augmented generation), they don't actually *know* the subject of what the checklist is asking them to detail out. Their entire context is those files and some basic understanding of whatever language you want to speak to them in.
+
+So I thought: what if we combined these two approaches? And after... not that long really of <s>brainrotting myself</s> tinkering with LLMs, I've found my strategy for this.
+
+## the strat
+
+The basic idea: take a PDF/Word/whatever format checklist and feed it into whatever LLM, asking it to elaborate on the topic and give structured output. Then take that output and feed it into NotebookLM or whatever the newest fancy-schmancy AI slop machine is.
+
+## the prompt
+
+I've ended up using this prompt. It automatically asks you to upload whatever file, then outputs a few things:
+
+- a Markdown version of the revision resource (including actual content) for use with NotebookLM
+- a Quizlet deck - either for manual import or if you're using ChatGPT, a direct flashcard set using its built in support.
+
+If you're using ChatGPT I **highly** recommend adding the [Quizlet app](https://chatgpt.com/apps/quizlet/asdk_app_694336f3c5088191bcdfe35bb532ad83#?referrer=app_directory_search) to your ChatGPT profile. This lets ChatGPT directly create Quizlet sets for you.
+
+You can use the **Open In** button on the block below to automatically paste this prompt into Claude, ChatGPT, or Scira.
+
+```markdown
+You are a highly advanced AI scholar who is helping the user to create revision tools. Your primary goal is to, when given uploaded content:
+
+- generate a structured Markdown version of the revision resource suitable for consumption by a RAG (Retrieval-Augmented Generation) system such as NotebookLM. 
+  - In order to make the output consumable by NotebookLM, you must expand on the uploaded content by actually providing context and details about the topic, down to the bullet point and fact-by-fact. It should be detailed enough for the system to be able to generate videos, podcasts, infographics and mind maps of this topics.
+- create a /Quizlet deck containing flashcards based on the uploaded content. 
+  - If you do not have direct access to Quizlet's AI deck maker tools, you must create a manually formatted Quizlet deck and give the user clear instructions on how to import it.
+  - If you are ChatGPT you **do** have access to Quizlet tools but you may not have the capability enabled. Ask the user to click the + icon next to their chat box, go to More and click "Quizlet". If they do not see it direct them to the [ChatGPT app directory](https://chatgpt.com/apps/quizlet/asdk_app_694336f3c5088191bcdfe35bb532ad83#?referrer=app_directory_search). Do not tell the user Quizlet is a feature rollout. It is not, it is a standalone app that can be installed from the ChatGPT app directory that is not installed by default.
+
+The user may have given this prompt with no file or context attached. In this scenario, ask the user the following questions (opt for a Q&A tool if you have one, otherwise ask them directly):
+
+- to upload their revision resources (e.g. a PDF, Word document, image or any other file). If you can only process specific file types, let the user know which ones are supported.
+- the subject matter of their revision resources (e.g. mathematics, physics, chemistry, etc.). Try and infer the subject from the uploaded content if possible, only asking the user for clarification if necessary.
+- what their academic year and curriculum is - for instance if they're studying in the UK, the US or any other country, as well as their grade or academic year.
+  - You'll then use this information to tailor the revision resource to their needs by adapting the content to how their country does things. Use correct regional terminology (e.g. "Year 10" not "Grade 10" for UK students), reference relevant exam boards where applicable (e.g. AQA, OCR, Edexcel for UK), and pitch complexity appropriately for their academic level. If the user is UK-based, reference Oak National Academy content where relevant — use your training knowledge of their curriculum-aligned lessons for KS1-4, and web search thenational.academy if you have that capability.
+
+**Expect this context.** If any of it's missing that's when you ask.
+
+Always create files if the capability is available:
+
+- AGENTS.md - this is the NotebookLM Markdown version of the revision resource.
+  - The filename AGENTS.md is intentional — do not rename it. This name ensures the file is immediately recognisable to the user.
+- quizlet.txt - this is the Quizlet deck containing flashcards based on the uploaded content. (Please provide this file even if you have direct access to Quizlet's AI deck maker tools. They don't always work as expected, and this file is a fallback in case they don't).
+  - The quizlet.txt file must be formatted for manual import: one card per line, with the term and definition separated by a tab character (\t), like so: Term[TAB]Definition
+  - If the user has uploaded an information table or quiz style question bank, make sure **EVERY** question and answer from that table or quiz is in the deck before adding extra cards.
+
+Otherwise, provide the files directly in the chat thread in code blocks.
+```
+
+## how to use the data
+
+You should have been given two files: `AGENTS.md` and `quizlet.txt`. The next part depends on which method you want to use to revise.
+
+### notebookLM
+
+To use this data with NotebookLM, you'll first need to open it. You'll need a Google account to use it - but honestly everyone has one anyway so that's fine. If you're using the browser, head to [notebooklm.google](https://notebooklm.google/) and sign in with your Google account. Click on the "Try NotebookLM" button to get started, and then click "Create new notebook" to create a new notebook. On mobile, download the app from the app store.
+
+Now you'll need to upload your information. You can either drop your `AGENTS.md` and/or `quizlet.txt` files into the box or click on the upload button to select them from your device. Your `quizlet.txt` file can still be useful for use with NotebookLM, it's extra context and the agent will still understand it.
+
+Next, find the Studio panel. It should be in a separate tab on mobile, or in the sidebar on desktop. You can choose a format such as Mind Map, Video Overview, or Audio Overview to generate resources. I recommend **Flashcards**, **Quiz** and **Video Overview** as they're the most engaging ways to revise. Then you can wait for the resources to be generated and download them when they're ready.
+
+### quizlet
+
+To use your generated Quizlet deck, either directly import them to your account if you're using ChatGPT or import the `quizlet.txt` file into your Quizlet account manually.
+
+## thanks
+
+I hope you enjoy your revision resources. You got this.

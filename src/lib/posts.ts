@@ -12,6 +12,39 @@ export type Post = {
   source: "mdx" | "payload";
 };
 
+export type Heading = {
+  level: number;
+  text: string;
+  slug: string;
+};
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/[^\w-]+/g, "") // Remove all non-word chars
+    .replace(/--+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
+}
+
+export function extractHeadings(content: string): Heading[] {
+  const headingRegex = /^(#{2,4})\s+(.+)$/gm;
+  const headings: Heading[] = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2];
+    const slug = slugify(text);
+    headings.push({ level, text, slug });
+  }
+
+  return headings;
+}
+
 const postsDir = path.join(process.cwd(), "src/content/posts");
 
 async function getMdxPosts(): Promise<Post[]> {

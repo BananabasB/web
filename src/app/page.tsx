@@ -18,10 +18,12 @@ export default async function Home() {
     <div className="max-w-6xl px-6 py-12">
 
       {/* header */}
-      <div className="pb-4 mb-4">
-        <h1 className={`text-6xl font-black leading-none text-foreground mb-4 ${makeSans.className}`}>
-          hi there
-        </h1>
+      <article className="pb-4 mb-4">
+        <header>
+          <h1 className={`text-6xl font-black leading-none text-foreground mb-4 ${makeSans.className}`}>
+            hi there
+          </h1>
+        </header>
         <div className="">
           <p className="text-base leading-relaxed max-w-lg m-0">
             <strong>It's me, bananabas.</strong> I often like tinkering with electronics, sharing my (very strong) opinions, and just generally yapping. Sometimes I like to work on <Link href="https://jill-jimmy.com">
@@ -35,7 +37,7 @@ export default async function Home() {
             I use a lot of Apple products, including a Mac mini and an iPhone 14 that I've been using for a while now. I also have a Nintendo Switch 2 for when I want to play games with friends (Tomodachi Life anyone?).
           </p>
         </div>
-      </div>
+      </article>
 
       <div className="flex flex-col-reverse gap-8 lg:flex-row lg:gap-12">
 

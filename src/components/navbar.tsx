@@ -3,10 +3,12 @@ import Link from "next/link";
 import { makeSans } from "@/lib/fonts";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { useIsMobile } from "../hooks/use-is-mobile";
 
 export default function Navbar() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [canAnimate, setCanAnimate] = useState(true);
+  const isMobile = useIsMobile();
 
   const handleHover = () => {
     if (!canAnimate || isAnimating) return;
@@ -20,6 +22,31 @@ export default function Navbar() {
       setCanAnimate(true);
     }, 1000);
   };
+
+  if (isMobile) {
+    return (
+      <nav className="border-b-2 border-foreground flex flex-col">
+        <div className="border-b-2 border-foreground w-full px-4 pt-5 overflow-hidden">
+          <Link href="/">
+            <h1 className={`text-[17vw] leading-none font-black text-center whitespace-nowrap ${makeSans.className}`}>
+              bananabas
+            </h1>
+          </Link>
+        </div>
+        <ul className="grid grid-cols-3 justify-center ">
+          <li className="navbar-item border-r-2 font-semibold py-3 border-foreground text-center">
+            <Link href="/">Home</Link>
+          </li>
+          <li className="navbar-item border-r-2 font-semibold py-3 border-foreground text-center">
+            <Link href="/blog">Blog</Link>
+          </li>
+          <li className="navbar-item font-semibold py-3 text-center">
+            <Link href="/about">About</Link>
+          </li>
+        </ul>
+      </nav>
+    );
+  }
 
   return (
     <nav className="border-b-2 border-foreground justify-between items-center px-4 py-4 flex flex-row">

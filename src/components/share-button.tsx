@@ -3,6 +3,7 @@ import { useSyncExternalStore, useState } from "react";
 import { SiBluesky, SiWhatsapp } from "react-icons/si";
 import { LuLink as Link } from "react-icons/lu";
 import Button from "@/components/button";
+import { makeSans } from "@/lib/fonts";
 
 type Props = {
   title: string;
@@ -50,17 +51,22 @@ export default function ShareButton({ title, url }: Props) {
   }
 
   return (
-    <div className="flex flex-row gap-3 items-center">
-      <a href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} — ${url}`)}`} target="_blank" rel="noopener noreferrer" aria-label="share on bluesky">
-        <SiBluesky size={18} />
-      </a>
-      <a href={`https://wa.me/?text=${encodeURIComponent(`${title} — ${url}`)}`} target="_blank" rel="noopener noreferrer" aria-label="share on whatsapp">
-        <SiWhatsapp size={18} />
-      </a>
-      <button onClick={handleCopy} aria-label="copy link">
-        <Link size={18} />
-        {copied && <span className="text-xs ml-1">copied!</span>}
-      </button>
+    <div>
+      <h2 className={`text-xs uppercase tracking-widest font-bold mb-3 ${makeSans.className}`}>
+        share
+      </h2>
+      <div className="flex flex-row gap-3 items-center">
+        <a href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${title} — ${url}`)}`} target="_blank" rel="noopener noreferrer" aria-label="share on bluesky">
+          <SiBluesky size={18} />
+        </a>
+        <a href={`https://wa.me/?text=${encodeURIComponent(`${title} — ${url}`)}`} target="_blank" rel="noopener noreferrer" aria-label="share on whatsapp">
+          <SiWhatsapp size={18} />
+        </a>
+        <button onClick={handleCopy} aria-label="copy link">
+          <Link size={18} />
+          {copied && <span className="text-xs ml-1">copied!</span>}
+        </button>
+      </div>
     </div>
   );
 }
