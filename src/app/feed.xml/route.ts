@@ -7,25 +7,25 @@ export async function GET() {
   const feed = new Feed({
     title: "bananabas",
     description: "bananabas's blog",
-    id: "https://bananabas.dev/",
-    link: "https://bananabas.dev/",
+    id: "https://barnabas.frg.network/",
+    link: "https://barnabas.frg.network/",
     language: "en",
     feedLinks: {
-      rss: "https://bananabas.dev/feed.xml",
-      atom: "https://bananabas.dev/atom.xml",
+      rss: "https://barnabas.frg.network/feed.xml",
+      atom: "https://barnabas.frg.network/atom.xml",
     },
     author: {
       name: "bananabas",
-      email: "barnabas.bodily@icloud.com",
+      email: "barnabas@frg.network",
     },
-    copyright: `© ${new Date().getFullYear()} bananabas`,
+    copyright: `Licensed under CC-BY-NC 4.0 ${new Date().getFullYear()} bananabas`,
   });
 
   for (const post of posts) {
     feed.addItem({
       title: post.title,
-      id: `https://bananabas.dev/blog/${post.slug}`,
-      link: `https://bananabas.dev/blog/${post.slug}`,
+      id: `https://barnabas.frg.network/blog/${post.slug}`,
+      link: `https://barnabas.frg.network/blog/${post.slug}`,
       description: post.description,
       date: new Date(post.date),
     });
